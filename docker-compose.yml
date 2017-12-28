@@ -1,0 +1,48 @@
+version: "2"
+
+services:
+
+ jenkins-service:
+  build:
+    context: ./jenkins
+    dockerfile: Dockerfile
+  image: jenkins-image
+  container_name: jenkins-container
+  ports:
+   -  7070:8080
+  
+ tomcat-container:
+  build:
+    context: ./tomcat
+    dockerfile: Dockerfile
+  image: mytomcat-image
+  container_name: mytomcat-server
+  ports:
+   - 8083:8080
+    
+ nexus-container:
+  build:
+    context: ./nexus
+    dockerfile: Dockerfile
+  image: mynexus-image
+  container_name: mynexus-server
+  ports:
+   - 8084:8081
+      
+ sonar-container:
+  build:
+    context: ./sonar
+    dockerfile: Dockerfile
+  image: sonar-image
+  container_name: sonar-server
+  ports:
+   - 8085:9000
+   
+ visualizer:
+    image: dockersamples/visualizer
+    ports:
+      - "8888:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"  
+      
+    
